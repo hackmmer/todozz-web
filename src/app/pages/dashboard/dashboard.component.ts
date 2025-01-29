@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { TodoService } from '../../services/todo.service';
+import { ITodo, IWorkspace } from '../../interfaces/todo';
+import { UserService } from '../../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ManageTodoComponent } from '../../modals/todos/manage-todo/manage-todo.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -9,14 +13,28 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  path!: string;
-  params!: any;
+  todos: ITodo[] = [];
+  workspaces: IWorkspace[] = []
 
-  constructor(){
+  constructor(private _userService: UserService, private _dialog: MatDialog){
 
   }
 
   ngOnInit(): void {
+    this.workspaces = this._userService.getUserWorkspaces();
+  }
+
+  addEditTodo(workspace: IWorkspace, todo?: ITodo) {
+    this._dialog.open(
+      ManageTodoComponent, {
+        data: {
+          isEdit: !!todo,
+          todo: todo,
+        }
+      }
+    ).afterClosed().subscribe((e: ITodo)=> {
+      workspace.todos.push(e)
+    })
   }
 
 }

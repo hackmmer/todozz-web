@@ -1,0 +1,11 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <h2>{{todo.title}}</h2>
+  </mat-card-header>
+  <mat-card-content>{{ todo.description }}</mat-card-content>
+  <mat-card-footer>
+    <section class="d-flex my-3 flex-column">
+      <mat-checkbox [checked]="task.value" *ngFor="let task of todo.checkers">{{task.text}}</mat-checkbox>
+    </section>
+  </mat-card-footer>
+</mat-card>

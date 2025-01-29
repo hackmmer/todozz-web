@@ -1,7 +1,19 @@
-.img img {
-  --img-size: 4rem;
-  height: var(--img-size);
-  width: var(--img-size);
-  border-radius: 50%;
+.img {
+  --img-size: 3rem;
+
+  button {
+    height: var(--img-size);
+    width: var(--img-size);
+    position: relative;
+  }
+
+  img {
+    height: var(--img-size);
+    width: var(--img-size);
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
 }

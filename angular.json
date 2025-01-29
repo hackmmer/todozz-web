@@ -8,13 +8,16 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "standalone": false
+          "standalone": false,
+          "export": true
         },
         "@schematics/angular:directive": {
-          "standalone": false
+          "standalone": false,
+          "export": true
         },
         "@schematics/angular:pipe": {
-          "standalone": false
+          "standalone": false,
+          "export": true
         }
       },
       "root": "",
@@ -28,7 +31,8 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -39,6 +43,7 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/magenta-violet.css",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -76,10 +81,16 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "todo:build:production"
+              "buildTarget": "todo:build:production",
+              "ssl": true,
+              "sslCert": "./ssl/server.pub",
+              "sslKey": "./ssl/server.key"
             },
             "development": {
-              "buildTarget": "todo:build:development"
+              "buildTarget": "todo:build:development",
+              "ssl": true,
+              "sslCert": "./ssl/server.pub",
+              "sslKey": "./ssl/server.key"
             }
           },
           "defaultConfiguration": "development"
@@ -92,7 +103,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
@@ -103,6 +115,7 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/magenta-violet.css",
               "src/styles.scss"
             ],
             "scripts": []

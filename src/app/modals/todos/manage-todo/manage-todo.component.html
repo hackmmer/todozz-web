@@ -1,0 +1,35 @@
+<h2 matDialogTitle>{{ title }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="row my-3">
+      <label for="title">Title:</label>
+      <input id="title" type="text" formControlName="title">
+    </div>
+    <div class="row my-3">
+      <label for="desc">Description:</label>
+      <textarea id="desc" type="text" formControlName="description"></textarea>
+    </div>
+    <div class="row">
+      <div class="d-flex flex-row justify-content-between">
+        <label for="tasks_adder" class="w-25">Tasks:</label>
+        <button id="tasks_adder" (click)="addTask()" mat-icon-button>
+          <app-icon icon="plus"></app-icon>
+        </button>
+      </div>
+      <div formArrayName="checkers">
+        <div [formGroupName]="$i" *ngFor="let f of tasks; index as $i">
+          <mat-checkbox formControlName="value">
+            <input type="text" formControlName="text">
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button matDialogClose>Close dialog</button>
+  <button (click)="close()" [disabled]="!this.form.valid" mat-button>Action</button>
+
+</mat-dialog-actions>
