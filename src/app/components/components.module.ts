@@ -12,6 +12,8 @@ import { IconComponent } from './icon/icon.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+
 @NgModule({
   declarations: [
     NavBarComponent,
@@ -32,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTabsModule,
     MatButtonModule,
     MatDialogModule,
+    MatMenuModule,
   ],
   exports: [
     NavBarComponent,

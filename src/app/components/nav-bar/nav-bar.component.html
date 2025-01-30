@@ -2,6 +2,19 @@
   <div></div>
   <span>Todo List</span>
   <div>
-    <app-user-img />
+    <app-user-img [mat-menu]="menu" *ngIf="session; Else noAuth">
+      <mat-menu menu #menu>
+          <button mat-menu-item>
+              Account
+          </button>
+          <button (click)="logout()" mat-menu-item>
+            Logout
+        </button>
+      </mat-menu>
+    </app-user-img>
   </div>
 </mat-toolbar>
+
+<ng-template #noAuth>
+  <button mat-flat-button (click)="login()">Login</button>
+</ng-template>

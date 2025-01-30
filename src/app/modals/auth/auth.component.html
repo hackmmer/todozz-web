@@ -1,0 +1,20 @@
+<h2 matDialogTitle>{{ title }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="row my-3">
+      <label for="user">Username:</label>
+      <input id="user" type="text" formControlName="user">
+    </div>
+    <div class="row my-3">
+      <label for="pass">Password:</label>
+      <input id="pass" type="text" formControlName="pass">
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button matDialogClose>Close dialog</button>
+  <button (click)="loginSignup()" [disabled]="!this.form.valid" mat-button>Login!</button>
+
+</mat-dialog-actions>

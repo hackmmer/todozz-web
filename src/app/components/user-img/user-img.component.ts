@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-user-img',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class UserImgComponent {
-
+  @Input('mat-menu') MatMenu?: any;
 }

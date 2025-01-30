@@ -1,5 +1,8 @@
 <div class="img">
-  <button mat-icon-button>
+  <button [mat-menu-trigger-for]="MatMenu" mat-icon-button>
     <img src="./images/defaults/user.jpg" alt="User Image">
   </button>
 </div>
+
+<ng-content select="[menu]"></ng-content>
+
