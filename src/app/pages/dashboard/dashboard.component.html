@@ -13,15 +13,15 @@
     </div>
   </mat-card-header>
   <mat-tab-group [dynamicHeight]="true" class="h-100" animationDuration="250ms">
-    <mat-tab class="d-flex flex-row" *ngFor="let item of workspaces">
+    <mat-tab class="d-flex flex-row" *ngFor="let workspace of workspaces">
       <ng-template mat-tab-label>
-        <span class="me-2">{{ item.title }}</span>
-        <button (click)="addEditTodo(item)" mat-icon-button aria-label="Add new todo">
+        <span class="me-2">{{ workspace.title }}</span>
+        <button (click)="addEditTodo(workspace)" mat-icon-button aria-label="Add new todo">
           <app-icon [icon]="'plus'"></app-icon>
         </button>
       </ng-template>
 
-      <app-todo-list *ngIf="item.todos.length > 0; Else noTodos" [todos]="item.todos" />
+      <app-todo-list (changes)="todoChanges($event)" *ngIf="workspace.todos.length > 0; Else noTodos" [todos]="workspace.todos" />
 
     </mat-tab>
   </mat-tab-group>

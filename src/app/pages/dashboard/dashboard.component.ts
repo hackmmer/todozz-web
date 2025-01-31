@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
-import { ITodo, IWorkspace } from '../../interfaces/todo';
+import { ITask, ITodo, IWorkspace } from '../../interfaces/todo';
 import { UserService } from '../../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageTodoComponent } from '../../modals/todos/manage-todo/manage-todo.component';
@@ -64,5 +64,11 @@ export class DashboardComponent implements OnInit {
           this.workspaces.push(e);
         });
       });
+  }
+
+  todoChanges($event: any) {
+    let { todo, task } = $event;
+    console.log(task);
+    this._todoService.updateTask(task).subscribe((e) => {});
   }
 }

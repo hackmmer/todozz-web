@@ -1,5 +1,5 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { ITodo, IWorkspace } from '../interfaces/todo';
+import { ITask, ITodo, IWorkspace } from '../interfaces/todo';
 import { UserService } from './user.service';
 import { Subject, tap } from 'rxjs';
 import { User } from '../interfaces/user';
@@ -58,6 +58,27 @@ export class TodoService {
           environment.api.port
         }/${environment.api.endpoint}/workspace`,
         w,
+        {
+          headers,
+        }
+      )
+      .pipe(
+        tap((response) => {
+          console.log(response);
+        })
+      );
+  }
+
+  updateTask(task: ITask) {
+    let headers: HttpHeaders = new HttpHeaders();
+    const session = sessionStorage.getItem('Session');
+    if (session) headers = headers.set('Authorization', `Bearer ${session}`);
+    return this._http
+      .patch<ITask>(
+        `${environment.api.ssl ? 'https' : 'http'}://${environment.api.url}:${
+          environment.api.port
+        }/${environment.api.endpoint}/todo/task/${task.token}`,
+        task,
         {
           headers,
         }
