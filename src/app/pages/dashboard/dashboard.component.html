@@ -12,7 +12,7 @@
       </div>
     </div>
   </mat-card-header>
-  <mat-tab-group animationDuration="250ms">
+  <mat-tab-group [dynamicHeight]="true" class="h-100" animationDuration="250ms">
     <mat-tab class="d-flex flex-row" *ngFor="let item of workspaces">
       <ng-template mat-tab-label>
         <span class="me-2">{{ item.title }}</span>
@@ -20,6 +20,7 @@
           <app-icon [icon]="'plus'"></app-icon>
         </button>
       </ng-template>
+
       <app-todo-list *ngIf="item.todos.length > 0; Else noTodos" [todos]="item.todos" />
 
     </mat-tab>
@@ -27,7 +28,7 @@
 </mat-card>
 
 <ng-template #noTodos>
-  <div class="row w-100">
+  <div class="row w-100 h-100">
     <div class="col-12 m-3 d-flex justify-content-center">
       <h2>No todos in this workspace</h2>
     </div>

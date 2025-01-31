@@ -28,9 +28,24 @@ export class TodoService {
   }
 
   createTodo(workspace: string, todo: ITodo) {
-    this.getWorkspaces()?.subscribe((w) => {
-      w.find((e) => e.token === workspace)?.todos.push(todo);
-    });
+    let headers: HttpHeaders = new HttpHeaders();
+    const session = sessionStorage.getItem('Session');
+    if (session) headers = headers.set('Authorization', `Bearer ${session}`);
+    return this._http
+      .post<ITodo>(
+        `${environment.api.ssl ? 'https' : 'http'}://${environment.api.url}:${
+          environment.api.port
+        }/${environment.api.endpoint}/todo`,
+        { workspace, ...todo },
+        {
+          headers,
+        }
+      )
+      .pipe(
+        tap((response) => {
+          console.log(response);
+        })
+      );
   }
 
   createWorkspace(w: IWorkspace) {

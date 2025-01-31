@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -7,8 +13,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ITodo } from '../../../interfaces/todo';
+import { ITask, ITodo } from '../../../interfaces/todo';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { TodoService } from '../../../services/todo.service';
+import { Helper } from '../../../utils/helper';
 
 @Component({
   selector: 'app-manage-todo',
@@ -28,7 +36,10 @@ export class ManageTodoComponent implements OnInit {
   form: FormGroup;
   tasks: ITodo[] = [];
 
-  constructor(private _dialog: MatDialogRef<ManageTodoComponent>, private _cdr: ChangeDetectorRef) {
+  constructor(
+    private _dialog: MatDialogRef<ManageTodoComponent>,
+    private _cdr: ChangeDetectorRef
+  ) {
     this.title = this.data.isEdit ? 'Update Todo' : 'Create Todo';
 
     this.form = this._formBuilder.group({
@@ -45,11 +56,9 @@ export class ManageTodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form.get('checkers')?.valueChanges.subscribe(e => {
-      if (e.length != this.tasks.length)
-        this.tasks = e;
-    })
-
+    this.form.get('checkers')?.valueChanges.subscribe((e) => {
+      if (e.length != this.tasks.length) this.tasks = e;
+    });
   }
 
   addTask() {
@@ -60,17 +69,24 @@ export class ManageTodoComponent implements OnInit {
           Validators.required,
           Validators.minLength(3),
         ]),
-      }),
-    )
+      })
+    );
     this._cdr.detectChanges();
   }
 
   close() {
+    const checkers = (this.form.get('checkers')?.value as ITask[]).map((c) => {
+      c.token = Helper.createToken(c.text)
+      return c;
+    });
+
     const todo: ITodo = {
       title: this.form.get('title')?.value,
       description: this.form.get('description')?.value,
-      checkers: this.form.get('checkers')?.value,
+      checkers,
+      token: Helper.createToken(this.form.get('title')?.value),
     };
+
     this._dialog.close(todo);
   }
 }

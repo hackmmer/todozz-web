@@ -25,30 +25,44 @@ export class DashboardComponent implements OnInit {
   }
 
   addEditTodo(workspace: IWorkspace, todo?: ITodo) {
+    const isEdit = !!todo;
     this._dialog
       .open(ManageTodoComponent, {
         data: {
-          isEdit: !!todo,
-          todo: todo,
+          isEdit,
+          todo,
         },
       })
       .afterClosed()
       .subscribe((e: ITodo) => {
-        workspace.todos.push(e);
+        if (isEdit) {
+          // edit logic here
+          return;
+        }
+        this._todoService.createTodo(workspace.token, e).subscribe((e) => {
+          workspace.todos.push(e);
+        });
       });
   }
 
   addEditWorkspace(workspace?: IWorkspace) {
+    const isEdit = !!workspace;
     this._dialog
       .open(ManageWorkspaceComponent, {
         data: {
-          isEdit: !!workspace,
+          isEdit,
           workspace,
         },
       })
       .afterClosed()
       .subscribe((e: IWorkspace) => {
-        this.workspaces.push(e);
+        if (isEdit) {
+          // edit logic here
+          return;
+        }
+        this._todoService.createWorkspace(e).subscribe((e) => {
+          this.workspaces.push(e);
+        });
       });
   }
 }

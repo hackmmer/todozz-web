@@ -30,7 +30,6 @@ export class ManageWorkspaceComponent {
 
   constructor(
     private _dialog: MatDialogRef<ManageTodoComponent>,
-    private _todoService: TodoService
   ) {
     this.title = this.data.isEdit ? 'Update Todo' : 'Create Todo';
 
@@ -48,8 +47,6 @@ export class ManageWorkspaceComponent {
       token: Helper.createToken(this.form.get('title')?.value),
       todos: [],
     };
-    this._todoService.createWorkspace(result).subscribe((e) => {
-      this._dialog.close(e);
-    });
+    this._dialog.close(result);
   }
 }
