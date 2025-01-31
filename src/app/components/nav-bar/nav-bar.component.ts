@@ -25,6 +25,7 @@ export class NavBarComponent implements OnInit {
     private matDialog: MatDialog,
     private userService: UserService,
     private _router: Router,
+    private _cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -45,7 +46,9 @@ export class NavBarComponent implements OnInit {
       exitAnimationDuration: '250ms',
     });
     dialogRef.afterClosed().subscribe((e) => {
+      this.session = sessionStorage.getItem('Session') ?? '';
       this._router.navigate(['/dashboard']);
+      this._cdr.markForCheck();
     });
   }
 

@@ -1,4 +1,17 @@
-<mat-card appearance="outlined">
+<mat-card class="w-100">
+  <mat-card-header class="py-2">
+    <div class="d-flex w-100 flex-row justify-content-between">
+      <div></div>
+      <div>
+        <h2>Workspaces</h2>
+      </div>
+      <div class="h-100">
+        <button (click)="addEditWorkspace()" mat-icon-button aria-label="Add new todo">
+          <app-icon [icon]="'plus'"></app-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-header>
   <mat-tab-group animationDuration="250ms">
     <mat-tab class="d-flex flex-row" *ngFor="let item of workspaces">
       <ng-template mat-tab-label>
@@ -7,7 +20,7 @@
           <app-icon [icon]="'plus'"></app-icon>
         </button>
       </ng-template>
-      <app-todo-list *ngIf="item.todos.length > 0; Else noTodos" [todos]="item.todos"/>
+      <app-todo-list *ngIf="item.todos.length > 0; Else noTodos" [todos]="item.todos" />
 
     </mat-tab>
   </mat-tab-group>

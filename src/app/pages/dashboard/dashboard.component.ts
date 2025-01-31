@@ -4,6 +4,7 @@ import { ITodo, IWorkspace } from '../../interfaces/todo';
 import { UserService } from '../../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageTodoComponent } from '../../modals/todos/manage-todo/manage-todo.component';
+import { ManageWorkspaceComponent } from '../../modals/manage-workspace/manage-workspace.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,6 +35,20 @@ export class DashboardComponent implements OnInit {
       .afterClosed()
       .subscribe((e: ITodo) => {
         workspace.todos.push(e);
+      });
+  }
+
+  addEditWorkspace(workspace?: IWorkspace) {
+    this._dialog
+      .open(ManageWorkspaceComponent, {
+        data: {
+          isEdit: !!workspace,
+          workspace,
+        },
+      })
+      .afterClosed()
+      .subscribe((e: IWorkspace) => {
+        this.workspaces.push(e);
       });
   }
 }
