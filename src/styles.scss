@@ -1,6 +1,38 @@
 /* Importing Bootstrap SCSS file. */
 @use 'bootstrap/scss/bootstrap';
 
+@use '@angular/material' as mat;
+
+
+@use './app/styles/variables.scss';
+@use './app/styles/themes/all.scss';
+
+
+@use './app/styles/text-input.scss';
+@use './app/styles/text-area.scss';
+@use './app/styles/blur.scss';
+@use './app/styles/headings.scss';
+@use './app/styles/svg.scss';
+
+// Mat Styles
+@use './app/styles/mat/cdk-overlay.scss';
+@use './app/styles/mat/mat-tab-group.scss';
+@use './app/styles/mat/mat-toolbar.scss';
+@use './app/styles/mat/mat-button.scss';
+@use './app/styles/mat/mat-menu.scss';
+
+[transition-animated] * {
+  transition-duration: 1s;
+  transition-property: all;
+  transition-timing-function: ease-in-out;
+  transition-delay: 150ms;
+
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+  animation-delay: 150ms;
+  animation-timing-function: ease-in-out;
+}
+
 html,
 body {
   height: 100%;
@@ -10,5 +42,36 @@ body {
 body {
   margin: 0;
   padding: 0;
+
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  app-root {
+    background-color: #0000;
+    backdrop-filter: blur(17px);
+    height: 100%;
+    display: flex;
+
+    animation-duration: 10s;
+    animation-name: blur-latency;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes blur-latency {
+    from {
+      backdrop-filter: blur(12px);
+    }
+
+    50% {
+      backdrop-filter: blur(6px);
+    }
+
+    to {
+      backdrop-filter: blur(12px);
+    }
+  }
+
   // font-family: Roboto, "Helvetica Neue", sans-serif;
 }

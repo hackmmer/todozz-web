@@ -1,3 +1,25 @@
 :host>mat-card {
   height: calc(100% - (16px + 64px));
 }
+
+.tab-title {
+  // color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-surface);
+}
+
+.spinner-infinite-loading {
+  animation-name: rotation;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  @keyframes rotation {
+    from {
+      rotate: 0deg;
+    }
+
+    to {
+      rotate: 360deg;
+    }
+  }
+}

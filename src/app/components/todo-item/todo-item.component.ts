@@ -24,22 +24,14 @@ import { Subscription } from 'rxjs';
   templateUrl: './todo-item.component.html',
   styleUrl: './todo-item.component.scss',
 })
-export class TodoItemComponent
-  implements OnInit, OnDestroy, ControlValueAccessor
-{
+export class TodoItemComponent implements OnInit, OnDestroy {
   @Input() todo!: ITodo;
 
-  @Input() onChange = (task: ITask, change: any) => {};
-  @Input() onTouched = () => {};
-
   @Output() public changeValues = new EventEmitter<any>();
+  @Output('onDelete') public _onDelete = new EventEmitter();
 
   controllers!: FormControl[];
   private changes: Subscription[] = [];
-
-  // constructor(@Self() public controlDir: NgControl) {
-  //   this.controlDir.valueAccessor = this;
-  // }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -66,13 +58,7 @@ export class TodoItemComponent
     });
   }
 
-  writeValue(obj: any): void {}
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
+  onDelete() {
+    this._onDelete.emit();
   }
-
-  registerOnTouched(fn: any): void {}
-
-  setDisabledState?(isDisabled: boolean): void {}
 }

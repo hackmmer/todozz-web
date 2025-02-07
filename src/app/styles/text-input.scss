@@ -1,0 +1,53 @@
+.text-container {
+  position: relative;
+
+  & label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: var(--mat-sys-tertiary);
+    transition: all ease-in-out 150ms;
+    cursor: text;
+    user-select: none;
+  }
+
+  & label.hidden {
+    cursor: text;
+    color: transparent;
+  }
+}
+
+input[type=text],
+input[type=password] {
+  background: none;
+  border: 3px var(--mat-sys-primary) solid;
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 2rem;
+  color: var(--mat-sys-tertiary);
+  cursor: text;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+  animation-name: flashes;
+  animation-duration: 2.7s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+
+
+  @keyframes flashes {
+
+    from,
+    to {
+      border-color: var(--mat-sys-primary);
+    }
+
+    50% {
+      border-color: transparent;
+    }
+
+  }
+
+}

@@ -3,12 +3,16 @@ import { IUser, IUserLogin, IUserSession, User } from '../interfaces/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _storageService: StorageService
+  ) {}
 
   login(payload: IUserLogin) {
     return this._http
@@ -20,9 +24,8 @@ export class UserService {
       )
       .pipe(
         tap((response) => {
-          console.log(response);
-          sessionStorage.setItem('Session', response.session);
-          sessionStorage.setItem('_id', response.user._id);
+          this._storageService.setSession(response.session);
+          this._storageService.setItems({ _id: response.user._id });
         })
       );
     // .pipe(
@@ -32,7 +35,7 @@ export class UserService {
 
   logout() {
     let headers: HttpHeaders = new HttpHeaders();
-    const session = sessionStorage.getItem('Session');
+    const session = this._storageService.getSession();
     if (session) headers = headers.set('Authorization', `Bearer ${session}`);
     return this._http
       .post<boolean>(
@@ -44,13 +47,13 @@ export class UserService {
       )
       .pipe(
         tap((e) => {
-          sessionStorage.clear();
+          this._storageService.clear();
         })
       );
   }
 
   isLogedIn() {
-    return !!sessionStorage?.getItem('Session');;
+    return !!this._storageService.getSession();
   }
 
   register(payload: IUser) {
@@ -62,16 +65,16 @@ export class UserService {
         payload
       )
       .pipe(
-        tap((e: IUserSession) => {
-          sessionStorage.setItem('Session', e.session);
-          sessionStorage.setItem('_id', e.user._id);
+        tap((response: IUserSession) => {
+          this._storageService.setSession(response.session);
+          this._storageService.setItems({ _id: response.user._id });
         })
       );
   }
 
   getUser() {
     let headers: HttpHeaders = new HttpHeaders();
-    const session = sessionStorage.getItem('Session');
+    const session = this._storageService.getSession();
     if (session) headers = headers.set('Authorization', `Bearer ${session}`);
     return this._http.get<IUser>(
       `${environment.api.ssl ? 'https' : 'http'}://${environment.api.url}:${

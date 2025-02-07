@@ -1,0 +1,14 @@
+@use '@angular/material' as mat;
+
+html[theme=light-red] {
+  @include mat.theme((color: (primary: mat.$red-palette,
+        tertiary: mat.$orange-palette,
+        theme-type: light,
+      ),
+      typography: Roboto,
+      density: 0));
+}
+
+html[theme=light-red] body {
+  background-image: var(--dark-red-wallpaper) !important;
+}

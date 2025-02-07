@@ -11,4 +11,6 @@ export class IconComponent {
 
   @Input() icon: string = 'plus';
 
+  @Input() color: string = '';
+
 }

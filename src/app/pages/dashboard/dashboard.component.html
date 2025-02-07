@@ -12,17 +12,22 @@
       </div>
     </div>
   </mat-card-header>
-  <mat-tab-group [dynamicHeight]="true" class="h-100" animationDuration="250ms">
+  <mat-tab-group [dynamicHeight]="true" class="h-100" animationDuration="250ms" *ngIf="!isLoading; Else loading">
     <mat-tab class="d-flex flex-row" *ngFor="let workspace of workspaces">
       <ng-template mat-tab-label>
-        <span class="me-2">{{ workspace.title }}</span>
-        <button (click)="addEditTodo(workspace)" mat-icon-button aria-label="Add new todo">
-          <app-icon [icon]="'plus'"></app-icon>
-        </button>
+        <div class="h-100 w-100 d-flex align-items-center" (mousedown)="workspaceHolding(workspace)"
+          (mouseup)="workspaceRelease()" (mouseleave)="workspaceRelease()">
+          <span class="tab-title me-2">{{ workspace.title }}</span>
+          <button (click)="addEditTodo(workspace)" mat-icon-button aria-label="Add new todo">
+            <app-icon [icon]="'plus'"></app-icon>
+          </button>
+        </div>
       </ng-template>
 
-      <app-todo-list (changes)="todoChanges($event)" *ngIf="workspace.todos.length > 0; Else noTodos" [todos]="workspace.todos" />
-
+      <ng-template matTabContent>
+        <app-todo-list (todoDeleted)="deleteTodo($event)" (changes)="todoChanges($event)" *ngIf="workspace.todos.length > 0; Else noTodos"
+          [todos]="workspace.todos" />
+      </ng-template>
     </mat-tab>
   </mat-tab-group>
 </mat-card>
@@ -32,5 +37,12 @@
     <div class="col-12 m-3 d-flex justify-content-center">
       <h2>No todos in this workspace</h2>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div class="d-flex w-100 h-100 justify-content-center align-items-center">
+    <mat-progress-spinner class="spinner-infinite-loading" mode="determinate" [value]="75" color="primary"
+      [strokeWidth]="10"></mat-progress-spinner>
   </div>
 </ng-template>

@@ -6,6 +6,7 @@ import { User } from '../interfaces/user';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,14 +15,14 @@ export class TodoService {
   constructor(
     private _userService: UserService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private _storageService: StorageService
   ) {}
 
   getWorkspaces() {
     if (!isPlatformBrowser(this.platformId)) return null;
     const workspaces: Subject<IWorkspace[]> = new Subject();
     this._userService.getUser().subscribe((e) => {
-      console.log(e);
       workspaces.next(e.workspaces ?? []);
     });
     return workspaces.asObservable();
@@ -29,7 +30,7 @@ export class TodoService {
 
   createTodo(workspace: string, todo: ITodo) {
     let headers: HttpHeaders = new HttpHeaders();
-    const session = sessionStorage.getItem('Session');
+    const session = this._storageService.getSession();
     if (session) headers = headers.set('Authorization', `Bearer ${session}`);
     return this._http
       .post<ITodo>(
@@ -50,7 +51,7 @@ export class TodoService {
 
   createWorkspace(w: IWorkspace) {
     let headers: HttpHeaders = new HttpHeaders();
-    const session = sessionStorage.getItem('Session');
+    const session = this._storageService.getSession();
     if (session) headers = headers.set('Authorization', `Bearer ${session}`);
     return this._http
       .post<IWorkspace>(
@@ -69,9 +70,11 @@ export class TodoService {
       );
   }
 
+  deleteWorkspace(workspace: IWorkspace) {}
+
   updateTask(task: ITask) {
     let headers: HttpHeaders = new HttpHeaders();
-    const session = sessionStorage.getItem('Session');
+    const session = this._storageService.getSession();
     if (session) headers = headers.set('Authorization', `Bearer ${session}`);
     return this._http
       .patch<ITask>(

@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+
+:root {
+  @include mat.tabs-overrides((active-label-text-color: var(--var-sys-primary),
+      inactive-label-text-color: var(--var-sys-tertiary)));
+}
+
+// .app-mat-tab-content {
+//   height: 100%;
+// }

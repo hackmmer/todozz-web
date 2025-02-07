@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import { IWorkspace } from '../../interfaces/todo';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   FormBuilder,
@@ -7,9 +6,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ManageTodoComponent } from '../todos/manage-todo/manage-todo.component';
-import { Helper } from '../../utils/helper';
-import { TodoService } from '../../services/todo.service';
+import { IWorkspace } from '../../../interfaces/todo';
+import { Helper } from '../../../utils/helper';
+import { ManageTodoComponent } from '../../todos/manage-todo/manage-todo.component';
 
 @Component({
   selector: 'app-manage-workspace',
@@ -28,9 +27,7 @@ export class ManageWorkspaceComponent {
   private _formBuilder: FormBuilder = inject(FormBuilder);
   form: FormGroup;
 
-  constructor(
-    private _dialog: MatDialogRef<ManageTodoComponent>,
-  ) {
+  constructor(private _dialog: MatDialogRef<ManageTodoComponent>) {
     this.title = this.data.isEdit ? 'Update Todo' : 'Create Todo';
 
     this.form = this._formBuilder.group({

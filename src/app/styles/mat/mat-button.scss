@@ -1,0 +1,16 @@
+button[mat-button]>span {
+  color: var(--mat-sys-primary);
+}
+
+button[mat-button].danger {
+  background-color: var(--mat-sys-on-error);
+  border-radius: var(--mat-sys-corner-full);
+}
+
+button[mat-button].danger>span {
+  color: var(--mat-sys-error);
+}
+
+button[mat-button]:disabled span {
+  color: var(--mat-sys-surface-variant);
+}

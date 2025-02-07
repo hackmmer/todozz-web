@@ -1,8 +1,15 @@
 <mat-card appearance="outlined">
   <mat-card-header>
-    <h2>{{todo.title}}</h2>
+    <div class="w-100 d-flex justify-content-between">
+      <h2>{{todo.title}}</h2>
+      <button mat-icon-button (click)="onDelete()">
+        <app-icon [icon]="'delete'" />
+      </button>
+    </div>
   </mat-card-header>
-  <mat-card-content>{{ todo.description }}</mat-card-content>
+  <mat-card-content>
+    <p>{{ todo.description }}</p>
+  </mat-card-content>
   <mat-card-footer>
     <section class="d-flex my-3 flex-column">
       <mat-checkbox [formControl]="controllers[$i]" [checked]="task.value"

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { forwardRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UserImgComponent } from './user-img/user-img.component';
@@ -13,7 +13,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import {
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { InputTextComponent } from './input-text/input-text.component';
+import { ProvideValueAccessor } from './classes/BaseControl';
 
 @NgModule({
   declarations: [
@@ -22,6 +31,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TodoItemComponent,
     TodoListComponent,
     IconComponent,
+    InputTextComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +48,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatDialogModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     NavBarComponent,
@@ -45,6 +56,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TodoItemComponent,
     TodoListComponent,
     IconComponent,
+    InputTextComponent,
 
     // Material
     MatButtonModule,
@@ -55,6 +67,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatTabsModule,
     MatButtonModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class ComponentsModule {}

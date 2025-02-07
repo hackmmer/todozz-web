@@ -1,0 +1,16 @@
+<div class="text-container w-100 my-2">
+  <label [ngClass]="{hidden: hiddeLabel || control.dirty, 'text-area': type === 'textarea' }"
+    for="{{name}}">{{name}}</label>
+  <ng-container [ngSwitch]="type">
+    <ng-container *ngSwitchCase="'textarea'">
+      <ng-container *ngTemplateOutlet="textarea" />
+    </ng-container>
+    <input class="w-100" *ngSwitchDefault (blur)="focus(false)" (focus)="focus(true)" id="{{name}}" [type]="type"
+      [formControl]="control">
+  </ng-container>
+</div>
+
+<ng-template #textarea>
+  <textarea class="w-100" (blur)="focus(false)" (focus)="focus(true)" [formControl]="control" [cols]="cols"
+    [rows]="rows" id="{{name}}"></textarea>
+</ng-template>

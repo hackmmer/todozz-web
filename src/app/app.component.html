@@ -1,4 +1,4 @@
-<div class="container h-100 pb-2">
-  <app-nav-bar />
-  <router-outlet />
+<div transition-animated class="container h-100 pb-2">
+  <app-nav-bar (themeChange)="updateTheme($event)" />
+  <router-outlet></router-outlet>
 </div>

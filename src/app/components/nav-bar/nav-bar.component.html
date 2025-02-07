@@ -1,14 +1,39 @@
 <mat-toolbar class="d-flex my-2 py-2 px-3 rounded justify-content-between align-content-center">
-  <div></div>
-  <span>Todo List</span>
+  <div>
+    <button [mat-menu-trigger-for]="themes" mat-flat-button>
+      Theme
+    </button>
+    <mat-menu menu #themes>
+      <button mat-menu-item [mat-menu-trigger-for]="light">
+        Light
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="dark">
+        Dark
+      </button>
+
+      <mat-menu menu #light>
+        <button mat-menu-item (click)="changeTheme('light-'+t)" *ngFor="let t of themes_l">
+          {{t}}
+        </button>
+      </mat-menu>
+      <mat-menu menu #dark>
+        <button mat-menu-item (click)="changeTheme('dark-'+t)" *ngFor="let t of themes_l">
+          {{t}}
+        </button>
+      </mat-menu>
+
+
+    </mat-menu>
+  </div>
+  <h1>Todo List</h1>
   <div>
     <app-user-img [mat-menu]="menu" *ngIf="session; Else noAuth">
       <mat-menu menu #menu>
-          <button mat-menu-item>
-              Account
-          </button>
-          <button (click)="logout()" mat-menu-item>
-            Logout
+        <button mat-menu-item>
+          Account
+        </button>
+        <button (click)="logout()" mat-menu-item>
+          Logout
         </button>
       </mat-menu>
     </app-user-img>

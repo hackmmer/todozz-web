@@ -1,20 +1,15 @@
 <h2 matDialogTitle>{{ title }}</h2>
 
-<mat-dialog-content>
+<mat-dialog-content class="me-2">
   <form action="#" [formGroup]="form">
-    <div class="row my-3">
-      <label for="user">Username:</label>
-      <input id="user" type="text" formControlName="user">
-    </div>
-    <div class="row my-3">
-      <label for="pass">Password:</label>
-      <input id="pass" type="text" formControlName="pass">
-    </div>
+    <app-input-text formControlName="user" name='Username'  />
+    <app-input-text formControlName="pass" name='Password' type="password" />
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions>
-  <button mat-button matDialogClose>Close dialog</button>
+<mat-dialog-actions class="d-flex justify-content-between">
+  <button mat-button matDialogClose>Cancel</button>
+  <!-- <button mat-button>SignUp</button> -->
   <button (click)="loginSignup()" [disabled]="!this.form.valid" mat-button>Login!</button>
 
 </mat-dialog-actions>

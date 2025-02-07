@@ -2,17 +2,11 @@
 
 <mat-dialog-content>
   <form [formGroup]="form">
-    <div class="row my-3">
-      <label for="title">Title:</label>
-      <input id="title" type="text" formControlName="title">
-    </div>
-    <div class="row my-3">
-      <label for="desc">Description:</label>
-      <textarea id="desc" type="text" formControlName="description"></textarea>
-    </div>
-    <div class="row">
-      <div class="d-flex flex-row justify-content-between">
-        <label for="tasks_adder" class="w-25">Tasks:</label>
+    <app-input-text formControlName="title" name="Title" />
+    <app-input-text type="textarea" formControlName="description" name="Description" />
+    <div class="w-100">
+      <div class="d-flex flex-row justify-content-between align-items-center">
+        <label for="tasks_adder" class="w-25 h4">Tasks:</label>
         <button id="tasks_adder" (click)="addTask()" mat-icon-button>
           <app-icon icon="plus"></app-icon>
         </button>

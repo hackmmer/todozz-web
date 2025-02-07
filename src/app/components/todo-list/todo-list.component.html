@@ -1,6 +1,6 @@
 <div class="d-flex x-carrousel px-2">
   <ng-container *ngIf="!!todos; Else default">
-    <app-todo-item (changeValues)="todoChangesValues(todo, $event)" class="d-inline-block col-5 m-3 h-100" [todo]="todo"
+    <app-todo-item (onDelete)="todoDeleted(todo)" (changeValues)="todoChangesValues(todo, $event)" class="d-inline-block col-5 m-3 h-100" [todo]="todo"
       *ngFor="let todo of todos" />
   </ng-container>
   <ng-template #default>
