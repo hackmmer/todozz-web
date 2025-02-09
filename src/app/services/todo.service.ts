@@ -70,7 +70,47 @@ export class TodoService {
       );
   }
 
-  deleteWorkspace(workspace: IWorkspace) {}
+  deleteWorkspace(workspace: IWorkspace) {
+    let headers: HttpHeaders = new HttpHeaders();
+    const session = this._storageService.getSession();
+    if (session) headers = headers.set('Authorization', `Bearer ${session}`);
+    return this._http
+      .delete<IWorkspace>(
+        `${environment.api.ssl ? 'https' : 'http'}://${environment.api.url}:${
+          environment.api.port
+        }/${environment.api.endpoint}/workspace/${workspace.token}`,
+        {
+          headers,
+        }
+      )
+      .pipe(
+        tap((response) => {
+          console.log(response);
+        })
+      );
+  }
+
+
+
+  deleteTodo(todo: ITodo) {
+    let headers: HttpHeaders = new HttpHeaders();
+    const session = this._storageService.getSession();
+    if (session) headers = headers.set('Authorization', `Bearer ${session}`);
+    return this._http
+      .delete<IWorkspace>(
+        `${environment.api.ssl ? 'https' : 'http'}://${environment.api.url}:${
+          environment.api.port
+        }/${environment.api.endpoint}/todo/${todo.token}`,
+        {
+          headers,
+        }
+      )
+      .pipe(
+        tap((response) => {
+          console.log(response);
+        })
+      );
+  }
 
   updateTask(task: ITask) {
     let headers: HttpHeaders = new HttpHeaders();

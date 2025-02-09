@@ -12,30 +12,42 @@
       </div>
     </div>
   </mat-card-header>
-  <mat-tab-group [dynamicHeight]="true" class="h-100" animationDuration="250ms" *ngIf="!isLoading; Else loading">
-    <mat-tab class="d-flex flex-row" *ngFor="let workspace of workspaces">
-      <ng-template mat-tab-label>
-        <div class="h-100 w-100 d-flex align-items-center" (mousedown)="workspaceHolding(workspace)"
-          (mouseup)="workspaceRelease()" (mouseleave)="workspaceRelease()">
-          <span class="tab-title me-2">{{ workspace.title }}</span>
-          <button (click)="addEditTodo(workspace)" mat-icon-button aria-label="Add new todo">
-            <app-icon [icon]="'plus'"></app-icon>
-          </button>
-        </div>
-      </ng-template>
+  <ng-container *ngIf="!isLoading; Else loading">
+    <mat-tab-group [dynamicHeight]="true" class="h-100" animationDuration="250ms"
+      *ngIf="workspaces.length > 0; Else noWorkspaces">
+      <mat-tab class="d-flex flex-row" *ngFor="let workspace of workspaces">
+        <ng-template mat-tab-label>
+          <div class="h-100 w-100 d-flex align-items-center" (mousedown)="workspaceHolding(workspace)"
+            (mouseup)="workspaceRelease()" (mouseleave)="workspaceRelease()">
+            <span class="tab-title me-2">{{ workspace.title }}</span>
+            <button (click)="addEditTodo(workspace)" mat-icon-button aria-label="Add new todo">
+              <app-icon [icon]="'plus'"></app-icon>
+            </button>
+          </div>
+        </ng-template>
 
-      <ng-template matTabContent>
-        <app-todo-list (todoDeleted)="deleteTodo($event)" (changes)="todoChanges($event)" *ngIf="workspace.todos.length > 0; Else noTodos"
-          [todos]="workspace.todos" />
-      </ng-template>
-    </mat-tab>
-  </mat-tab-group>
+        <ng-template matTabContent>
+          <app-todo-list (todoDeleted)="deleteTodo($event)" (changes)="todoChanges($event)"
+            *ngIf="workspace.todos.length > 0; Else noTodos" [todos]="workspace.todos" />
+        </ng-template>
+      </mat-tab>
+
+    </mat-tab-group>
+  </ng-container>
 </mat-card>
 
 <ng-template #noTodos>
   <div class="row w-100 h-100">
     <div class="col-12 m-3 d-flex justify-content-center">
-      <h2>No todos in this workspace</h2>
+      <h3>No todos in this workspace</h3>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noWorkspaces>
+  <div class="row w-100 h-100">
+    <div class="col-12 m-3 d-flex justify-content-center">
+      <h3>No workspaces, please add one</h3>
     </div>
   </div>
 </ng-template>

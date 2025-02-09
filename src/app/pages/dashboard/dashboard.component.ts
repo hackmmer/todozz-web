@@ -13,7 +13,7 @@ import { ManageTodoComponent } from '../../modals/todos/manage-todo/manage-todo.
 import { DeleteItemComponent } from '../../modals/delete-item/delete-item.component';
 import { ManageWorkspaceComponent } from '../../modals/workspaces/manage-workspace/manage-workspace.component';
 import { MODAL_CONFIG } from '../../modals/classes/BaseModal';
-import { filter } from 'rxjs';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   workspaces: IWorkspace[] = [];
 
   timeoutHandler: NodeJS.Timeout | null = null;
-  isLoading: boolean = false;
+  isLoading: boolean = true;
 
   constructor(
     private _todoService: TodoService,
@@ -36,11 +36,9 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isLoading = true;
     this._todoService.getWorkspaces()?.subscribe((e) => {
       this.workspaces = e;
-      this.isLoading = false;
-      this._cdr.detectChanges();
+      this._switchLoading();
     });
   }
 
@@ -53,13 +51,17 @@ export class DashboardComponent implements OnInit {
     this._dialog
       .open(ManageTodoComponent, DialogConfig)
       .afterClosed()
+      .pipe(take(1))
+      .pipe(filter((e) => !!e))
       .subscribe((e: ITodo) => {
         if (isEdit) {
           // edit logic here
           return;
         }
+        this._switchLoading();
         this._todoService.createTodo(workspace.token, e).subscribe((e) => {
           workspace.todos.push(e);
+          this._switchLoading();
         });
       });
   }
@@ -73,13 +75,17 @@ export class DashboardComponent implements OnInit {
     this._dialog
       .open(ManageWorkspaceComponent, DialogConfig)
       .afterClosed()
+      .pipe(take(1))
+      .pipe(filter((e) => !!e))
       .subscribe((e: IWorkspace) => {
         if (isEdit) {
           // edit logic here
           return;
         }
+        this._switchLoading();
         this._todoService.createWorkspace(e).subscribe((e) => {
           this.workspaces.push(e);
+          this._switchLoading();
         });
       });
   }
@@ -105,30 +111,31 @@ export class DashboardComponent implements OnInit {
 
   deleteWorkspace(workspace: IWorkspace) {
     this.openConfirm('Workspace').subscribe((e: boolean) => {
-      this.isLoading = true;
-      this._todoService.deleteWorkspace(workspace);
-      this.workspaces = this.workspaces.filter(
-        (w) => workspace.token !== w.token
-      );
-      setTimeout(() => {
-        this.isLoading = false;
-        this._cdr.detectChanges();
-      }, 500);
+      this._switchLoading();
+      this._todoService.deleteWorkspace(workspace).subscribe((res) => {
+        this.workspaces = this.workspaces.filter(
+          (w) => workspace.token !== w.token
+        );
+        this._switchLoading();
+      });
     });
   }
 
   deleteTodo(todo: ITodo) {
     this.openConfirm('Todo').subscribe((e: boolean) => {
-      this.isLoading = true;
-      // this._todoService.deleteWorkspace(workspace);
-      // this.workspaces = this.workspaces.filter(
-      //   (w) => workspace.token !== w.token
-      // );
-      setTimeout(() => {
-        this.isLoading = false;
-        this._cdr.detectChanges();
-      }, 500);
+      this._switchLoading();
+      this._todoService.deleteTodo(todo).subscribe((_) => {
+        this._todoService.getWorkspaces()?.subscribe((w) => {
+          this.workspaces = w;
+          this._switchLoading();
+        });
+      });
     });
+  }
+
+  private _switchLoading() {
+    this.isLoading = !this.isLoading;
+    this._cdr.detectChanges();
   }
 
   openConfirm(kinda: string) {
@@ -138,6 +145,7 @@ export class DashboardComponent implements OnInit {
     return this._dialog
       .open(DeleteItemComponent, DialogConfig)
       .afterClosed()
+      .pipe(take(1))
       .pipe(filter((data) => !!data));
   }
 }
