@@ -1,0 +1,35 @@
+.app-input-group {
+  display: flex;
+
+  >* {
+    box-shadow: 0 0 5px var(--mat-sys-primary);
+    border: 3px var(--mat-sys-primary) solid;
+    margin: 3px 0 3px 0 !important;
+  }
+
+  >:first-child {
+    background: none;
+    padding: 5px 10px;
+    border-radius: 2rem 0 0 2rem;
+  }
+
+  >:not(:last-child):not(:first-child) {
+    border-radius: 0;
+  }
+
+  >:last-child {
+    border-radius: 0 .7rem .7rem 0;
+  }
+
+  input[type=text]:focus,
+  input[type=password]:focus {
+    animation: none;
+  }
+
+  .app-input-group-text {
+    background-color: var(--mat-sys-primary);
+    align-content: center;
+    padding: .7rem;
+  }
+
+}

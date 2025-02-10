@@ -3,6 +3,7 @@ import { random } from 'lodash';
 import { ThemeString } from '../enums/storage';
 
 export class Helper {
+
   static createToken(seed: string, randomSeed?: number) {
     const len = seed.length;
     const split = seed?.replace(' ', seed[random(0, len)]);

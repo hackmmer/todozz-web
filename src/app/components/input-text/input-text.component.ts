@@ -20,8 +20,8 @@ export class InputTextComponent
   @Input() name: string = 'ControlName';
   @Input() type: string = 'text';
 
-  @Input() rows?: 10;
-  @Input() cols?: 35;
+  @Input() rows?:number = 10;
+  @Input() cols?:number = 35;
 
   private sub!: Subscription;
 

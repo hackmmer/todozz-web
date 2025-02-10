@@ -2,11 +2,11 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { ITask, ITodo, IWorkspace } from '../interfaces/todo';
 import { UserService } from './user.service';
 import { Subject, tap } from 'rxjs';
-import { User } from '../interfaces/user';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
+import { IShareResp } from '../interfaces/http';
 
 @Injectable({
   providedIn: 'root',
@@ -70,6 +70,27 @@ export class TodoService {
       );
   }
 
+  createLinkFor(w: IWorkspace) {
+    let headers: HttpHeaders = new HttpHeaders();
+    const session = this._storageService.getSession();
+    if (session) headers = headers.set('Authorization', `Bearer ${session}`);
+    return this._http
+      .post<IShareResp>(
+        `${environment.api.ssl ? 'https' : 'http'}://${environment.api.url}:${
+          environment.api.port
+        }/${environment.api.endpoint}/share`,
+        w,
+        {
+          headers,
+        }
+      )
+      .pipe(
+        tap((response) => {
+          console.log(response);
+        })
+      );
+  }
+
   deleteWorkspace(workspace: IWorkspace) {
     let headers: HttpHeaders = new HttpHeaders();
     const session = this._storageService.getSession();
@@ -89,8 +110,6 @@ export class TodoService {
         })
       );
   }
-
-
 
   deleteTodo(todo: ITodo) {
     let headers: HttpHeaders = new HttpHeaders();

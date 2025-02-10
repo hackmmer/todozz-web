@@ -6,6 +6,12 @@
     <ng-container *ngSwitchCase="'delete'">
       <ng-container *ngTemplateOutlet="delete" />
     </ng-container>
+    <ng-container *ngSwitchCase="'share'">
+      <ng-container *ngTemplateOutlet="share" />
+    </ng-container>
+    <ng-container *ngSwitchCase="'clipboard'">
+      <ng-container *ngTemplateOutlet="clipboard" />
+    </ng-container>
   </span>
 </ng-container>
 
@@ -37,5 +43,27 @@
         </path>
       </g>
     </g>
+  </svg>
+</ng-template>
+
+<ng-template #share>
+  <svg fill="#000000" width="1rem" height="1rem" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 458.624 458.624" xml:space="preserve">
+    <g>
+      <g>
+        <path d="M339.588,314.529c-14.215,0-27.456,4.133-38.621,11.239l-112.682-78.67c1.809-6.315,2.798-12.976,2.798-19.871
+     c0-6.896-0.989-13.557-2.798-19.871l109.64-76.547c11.764,8.356,26.133,13.286,41.662,13.286c39.79,0,72.047-32.257,72.047-72.047
+     C411.634,32.258,379.378,0,339.588,0c-39.79,0-72.047,32.257-72.047,72.047c0,5.255,0.578,10.373,1.646,15.308l-112.424,78.491
+     c-10.974-6.759-23.892-10.666-37.727-10.666c-39.79,0-72.047,32.257-72.047,72.047s32.256,72.047,72.047,72.047
+     c13.834,0,26.753-3.907,37.727-10.666l113.292,79.097c-1.629,6.017-2.514,12.34-2.514,18.872c0,39.79,32.257,72.047,72.047,72.047
+     c39.79,0,72.047-32.257,72.047-72.047C411.635,346.787,379.378,314.529,339.588,314.529z" />
+      </g>
+    </g>
+  </svg>
+</ng-template>
+
+<ng-template #clipboard>
+  <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-clipboard-fill" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M10 1.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5zm-5 0A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5v1A1.5 1.5 0 0 1 9.5 4h-3A1.5 1.5 0 0 1 5 2.5zm-2 0h1v1A2.5 2.5 0 0 0 6.5 5h3A2.5 2.5 0 0 0 12 2.5v-1h1a2 2 0 0 1 2 2V14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2"/>
   </svg>
 </ng-template>

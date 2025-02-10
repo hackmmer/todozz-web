@@ -13,6 +13,8 @@
 @use './app/styles/blur.scss';
 @use './app/styles/headings.scss';
 @use './app/styles/svg.scss';
+@use './app/styles/input-groups.scss';
+
 
 // Mat Styles
 @use './app/styles/mat/cdk-overlay.scss';
@@ -20,6 +22,7 @@
 @use './app/styles/mat/mat-toolbar.scss';
 @use './app/styles/mat/mat-button.scss';
 @use './app/styles/mat/mat-menu.scss';
+
 
 [transition-animated] * {
   transition-duration: 1s;

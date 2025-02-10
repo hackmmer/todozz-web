@@ -20,6 +20,9 @@
           <div class="h-100 w-100 d-flex align-items-center" (mousedown)="workspaceHolding(workspace)"
             (mouseup)="workspaceRelease()" (mouseleave)="workspaceRelease()">
             <span class="tab-title me-2">{{ workspace.title }}</span>
+            <button (click)="shareWorkspace(workspace)" mat-icon-button aria-label="Share the workspace">
+              <app-icon [icon]="'share'"></app-icon>
+            </button>
             <button (click)="addEditTodo(workspace)" mat-icon-button aria-label="Add new todo">
               <app-icon [icon]="'plus'"></app-icon>
             </button>

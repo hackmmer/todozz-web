@@ -26,6 +26,7 @@ input[type=password] {
   padding: 5px 10px;
   border-radius: 2rem;
   color: var(--mat-sys-tertiary);
+  box-shadow: 0 0 5px var(--mat-sys-primary);
   cursor: text;
 }
 
@@ -41,11 +42,12 @@ input[type=password]:focus {
 
     from,
     to {
-      border-color: var(--mat-sys-primary);
+      // border-color: var(--mat-sys-primary);
+      box-shadow: 0 0 5px var(--mat-sys-primary);
     }
 
     50% {
-      border-color: transparent;
+      box-shadow: 0 0 0px transparent;
     }
 
   }

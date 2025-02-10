@@ -5,7 +5,7 @@
     <ng-container *ngSwitchCase="'textarea'">
       <ng-container *ngTemplateOutlet="textarea" />
     </ng-container>
-    <input class="w-100" *ngSwitchDefault (blur)="focus(false)" (focus)="focus(true)" id="{{name}}" [type]="type"
+    <input class="w-100 app-form-control" *ngSwitchDefault (blur)="focus(false)" (focus)="focus(true)" id="{{name}}" [type]="type"
       [formControl]="control">
   </ng-container>
 </div>

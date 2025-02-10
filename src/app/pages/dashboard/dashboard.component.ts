@@ -1,4 +1,3 @@
-import { Workspace } from './../../interfaces/todo';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -6,14 +5,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
-import { ITask, ITodo, IWorkspace } from '../../interfaces/todo';
-import { UserService } from '../../services/user.service';
+import { ITodo, IWorkspace } from '../../interfaces/todo';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageTodoComponent } from '../../modals/todos/manage-todo/manage-todo.component';
 import { DeleteItemComponent } from '../../modals/delete-item/delete-item.component';
 import { ManageWorkspaceComponent } from '../../modals/workspaces/manage-workspace/manage-workspace.component';
 import { MODAL_CONFIG } from '../../modals/classes/BaseModal';
 import { filter, take } from 'rxjs';
+import { ShareWorkspaceComponent } from '../../modals/workspaces/share-workspace/share-workspace.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -136,6 +135,18 @@ export class DashboardComponent implements OnInit {
   private _switchLoading() {
     this.isLoading = !this.isLoading;
     this._cdr.detectChanges();
+  }
+
+  shareWorkspace(w: IWorkspace) {
+    const DialogConfig = MODAL_CONFIG({
+      workspace: w,
+    });
+    this._dialog
+      .open(ShareWorkspaceComponent, DialogConfig)
+      .afterClosed()
+      .pipe(take(1))
+      .pipe(filter((data) => !!data))
+      .subscribe((e) => {});
   }
 
   openConfirm(kinda: string) {
