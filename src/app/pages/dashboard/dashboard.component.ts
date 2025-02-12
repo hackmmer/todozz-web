@@ -22,7 +22,6 @@ import { ShareWorkspaceComponent } from '../../modals/workspaces/share-workspace
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
-  todos: ITodo[] = [];
   workspaces: IWorkspace[] = [];
 
   timeoutHandler: NodeJS.Timeout | null = null;

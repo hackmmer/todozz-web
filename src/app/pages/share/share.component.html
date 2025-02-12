@@ -1,0 +1,38 @@
+<mat-card class="w-100">
+  <mat-card-header class="py-2">
+    <div class="d-flex w-100 flex-row justify-content-center">
+      <h2>Import Workspace</h2>
+    </div>
+  </mat-card-header>
+  <ng-container *ngIf="!isLoading; Else loading">
+    <mat-tab-group [dynamicHeight]="true" class="h-100" animationDuration="250ms" *ngIf="workspace">
+      <mat-tab class="d-flex flex-row">
+        <ng-template mat-tab-label>
+          <div class="h-100 w-100 d-flex align-items-center">
+            <span class="tab-title me-2">{{ workspace.title }}</span>
+          </div>
+        </ng-template>
+
+        <ng-template matTabContent>
+          <app-todo-list *ngIf="workspace.todos.length > 0; Else noTodos" [todos]="workspace.todos" />
+        </ng-template>
+      </mat-tab>
+
+    </mat-tab-group>
+  </ng-container>
+</mat-card>
+
+<ng-template #loading>
+  <div class="d-flex w-100 h-100 justify-content-center align-items-center">
+    <mat-progress-spinner class="spinner-infinite-loading" mode="determinate" [value]="75" color="primary"
+      [strokeWidth]="10"></mat-progress-spinner>
+  </div>
+</ng-template>
+
+<ng-template #noTodos>
+  <div class="row w-100 h-100">
+    <div class="col-12 m-3 d-flex justify-content-center">
+      <h3>No todos in this workspace</h3>
+    </div>
+  </div>
+</ng-template>

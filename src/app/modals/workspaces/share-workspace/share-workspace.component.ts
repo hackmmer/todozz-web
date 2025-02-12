@@ -11,6 +11,7 @@ import { IWorkspace } from '../../../interfaces/todo';
 import { TodoService } from '../../../services/todo.service';
 import { environment } from '../../../../environments/environment.development';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ShareService } from '../../../services/share.service';
 
 @Component({
   selector: 'app-share-workspace',
@@ -34,6 +35,7 @@ export class ShareWorkspaceComponent implements OnInit {
   constructor(
     private _dialog: MatDialogRef<ShareWorkspaceComponent>,
     private _todo: TodoService,
+    private _shareService: ShareService,
     private _cdr: ChangeDetectorRef
   ) {
     this.title = `Share "${this.data.workspace.title}"`;
@@ -41,7 +43,7 @@ export class ShareWorkspaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._todo.createLinkFor(this.data.workspace).subscribe((e) => {
+    this._shareService.createLinkFor(this.data.workspace).subscribe((e) => {
       this.link = `${environment.host}/share/${e.token}`;
       this.form.controls['link'].setValue(this.link);
       this._switchLoading();

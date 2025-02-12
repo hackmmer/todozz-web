@@ -5,15 +5,16 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ComponentsModule } from '../components/components.module';
 import { ServicesModule } from '../services/services.module';
+import { ShareComponent } from './share/share.component';
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, ShareComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
     ServicesModule,
     ComponentsModule,
   ],
-  exports: [DashboardComponent],
+  exports: [DashboardComponent, ShareComponent],
 })
 export class PagesModule {}

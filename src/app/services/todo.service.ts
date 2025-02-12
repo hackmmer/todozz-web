@@ -70,27 +70,6 @@ export class TodoService {
       );
   }
 
-  createLinkFor(w: IWorkspace) {
-    let headers: HttpHeaders = new HttpHeaders();
-    const session = this._storageService.getSession();
-    if (session) headers = headers.set('Authorization', `Bearer ${session}`);
-    return this._http
-      .post<IShareResp>(
-        `${environment.api.ssl ? 'https' : 'http'}://${environment.api.url}:${
-          environment.api.port
-        }/${environment.api.endpoint}/share`,
-        w,
-        {
-          headers,
-        }
-      )
-      .pipe(
-        tap((response) => {
-          console.log(response);
-        })
-      );
-  }
-
   deleteWorkspace(workspace: IWorkspace) {
     let headers: HttpHeaders = new HttpHeaders();
     const session = this._storageService.getSession();
