@@ -3,7 +3,7 @@ export const environment = {
   host: 'https://localhost:4200',
 
   api: {
-    url: '192.168.1.102',
+    url: 'localhost',
     port: 3000,
     ssl: true,
     endpoint: 'api'
