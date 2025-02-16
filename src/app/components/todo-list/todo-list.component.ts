@@ -17,6 +17,7 @@ export class TodoListComponent {
   }>();
 
   @Output('todoDeleted') _todoDeleted = new EventEmitter<ITodo>()
+  @Output('todoEdited') _todoEdited = new EventEmitter<ITodo>()
 
   todoChangesValues(todo: ITodo, task: ITask) {
     this.changes.emit({ todo, task });
@@ -24,6 +25,10 @@ export class TodoListComponent {
 
   todoDeleted(todo: ITodo) {
     this._todoDeleted.emit(todo);
+  }
+
+  todoEdited(todo: ITodo) {
+    this._todoEdited.emit(todo);
   }
 
 }

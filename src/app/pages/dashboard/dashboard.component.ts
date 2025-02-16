@@ -31,9 +31,14 @@ export class DashboardComponent implements OnInit {
     private _todoService: TodoService,
     private _dialog: MatDialog,
     private _cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this._updateWorkspaces();
+  }
+
+  _updateWorkspaces() {
+    this.isLoading = true;
     this._todoService.getWorkspaces()?.subscribe((e) => {
       this.workspaces = e;
       this._switchLoading();
@@ -53,7 +58,11 @@ export class DashboardComponent implements OnInit {
       .pipe(filter((e) => !!e))
       .subscribe((e: ITodo) => {
         if (isEdit) {
-          // edit logic here
+          this._switchLoading();
+          this._todoService.updateTodo(todo.token ?? '', e).subscribe((e) => {
+            this._updateWorkspaces(); // TODO: Change this for update todo in workspace
+            this._cdr.detectChanges();
+          });
           return;
         }
         this._switchLoading();
@@ -90,7 +99,7 @@ export class DashboardComponent implements OnInit {
 
   todoChanges($event: any) {
     let { todo, task } = $event;
-    this._todoService.updateTask(task).subscribe((e) => {});
+    this._todoService.updateTask(task).subscribe((e) => { });
   }
 
   workspaceHolding(workspace: IWorkspace) {
@@ -145,7 +154,7 @@ export class DashboardComponent implements OnInit {
       .afterClosed()
       .pipe(take(1))
       .pipe(filter((data) => !!data))
-      .subscribe((e) => {});
+      .subscribe((e) => { });
   }
 
   openConfirm(kinda: string) {

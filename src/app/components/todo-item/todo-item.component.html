@@ -2,9 +2,14 @@
   <mat-card-header>
     <div class="w-100 d-flex justify-content-between">
       <h2>{{todo.title}}</h2>
-      <button mat-icon-button (click)="onDelete()">
-        <app-icon [icon]="'delete'" />
-      </button>
+      <span>
+        <button mat-icon-button (click)="onEdit()">
+          <app-icon [icon]="'edit'" />
+        </button>
+        <button mat-icon-button (click)="onDelete()">
+          <app-icon [icon]="'delete'" />
+        </button>
+      </span>
     </div>
   </mat-card-header>
   <mat-card-content>

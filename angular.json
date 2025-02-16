@@ -133,6 +133,7 @@
   "cli": {
     "cache": {
       "enabled": true
-    }
+    },
+    "analytics": false
   }
 }

@@ -19,6 +19,15 @@ export abstract class BaseControl<T> implements ControlValueAccessor {
 
   writeValue(obj: Type<T>): void {
     this.value = obj;
+    this.control.setValue(obj, {
+      emitEvent: false
+    })
+    this.control.markAsDirty({
+      emitEvent: false
+    })
+    this.control.markAsTouched({
+      emitEvent: false
+    })
   }
 
   registerOnChange(fn: any): void {

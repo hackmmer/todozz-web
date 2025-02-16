@@ -29,6 +29,7 @@ export class TodoItemComponent implements OnInit, OnDestroy {
 
   @Output() public changeValues = new EventEmitter<any>();
   @Output('onDelete') public _onDelete = new EventEmitter();
+  @Output('onEdit') public _onEdit = new EventEmitter();
 
   controllers!: FormControl[];
   private changes: Subscription[] = [];
@@ -60,5 +61,9 @@ export class TodoItemComponent implements OnInit, OnDestroy {
 
   onDelete() {
     this._onDelete.emit();
+  }
+
+  onEdit() {
+    this._onEdit.emit();
   }
 }

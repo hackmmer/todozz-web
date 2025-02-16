@@ -30,7 +30,7 @@
         </ng-template>
 
         <ng-template matTabContent>
-          <app-todo-list (todoDeleted)="deleteTodo($event)" (changes)="todoChanges($event)"
+          <app-todo-list (todoEdited)="addEditTodo(workspace, $event)" (todoDeleted)="deleteTodo($event)" (changes)="todoChanges($event)"
             *ngIf="workspace.todos.length > 0; Else noTodos" [todos]="workspace.todos" />
         </ng-template>
       </mat-tab>

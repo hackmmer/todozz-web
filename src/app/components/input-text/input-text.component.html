@@ -1,5 +1,5 @@
 <div class="text-container w-100 my-2">
-  <label [ngClass]="{hidden: hiddeLabel || control.dirty, 'text-area': type === 'textarea' }"
+  <label [ngClass]="{hidden: hiddeLabel || control.dirty || control.touched }"
     for="{{name}}">{{name}}</label>
   <ng-container [ngSwitch]="type">
     <ng-container *ngSwitchCase="'textarea'">

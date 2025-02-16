@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -17,6 +18,7 @@ import { ITask, ITodo } from '../../../interfaces/todo';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { TodoService } from '../../../services/todo.service';
 import { Helper } from '../../../utils/helper';
+import { text } from 'stream/consumers';
 
 @Component({
   selector: 'app-manage-todo',
@@ -25,7 +27,7 @@ import { Helper } from '../../../utils/helper';
   templateUrl: './manage-todo.component.html',
   styleUrl: './manage-todo.component.scss',
 })
-export class ManageTodoComponent implements OnInit {
+export class ManageTodoComponent implements OnInit, AfterViewInit {
   title!: string;
   private readonly data: {
     isEdit: boolean;
@@ -61,6 +63,20 @@ export class ManageTodoComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    (this.data.todo?.checkers ?? []).forEach((e) => {
+      (this.form.get('checkers') as FormArray).push(new FormGroup({
+        value: new FormControl(e.value),
+        text: new FormControl(e.text, [
+          Validators.required,
+          Validators.minLength(3),
+        ]),
+        token:new FormControl(e.token),
+      }))
+    })
+    this._cdr.detectChanges()
+  }
+
   addTask() {
     (this.form.get('checkers') as FormArray).push(
       new FormGroup({
@@ -76,7 +92,7 @@ export class ManageTodoComponent implements OnInit {
 
   close() {
     const checkers = (this.form.get('checkers')?.value as ITask[]).map((c) => {
-      c.token = Helper.createToken(c.text)
+      c.token = c.token ?? Helper.createToken(c.text)
       return c;
     });
 
@@ -84,7 +100,7 @@ export class ManageTodoComponent implements OnInit {
       title: this.form.get('title')?.value,
       description: this.form.get('description')?.value,
       checkers,
-      token: Helper.createToken(this.form.get('title')?.value),
+      token: this.data.todo?.token ?? Helper.createToken(this.form.get('title')?.value),
     };
 
     this._dialog.close(todo);
