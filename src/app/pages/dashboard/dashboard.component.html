@@ -13,7 +13,7 @@
     </div>
   </mat-card-header>
   <ng-container *ngIf="!isLoading; Else loading">
-    <mat-tab-group [dynamicHeight]="true" class="h-100" animationDuration="250ms"
+    <mat-tab-group [dynamicHeight]="true" class="overflow-y-auto" animationDuration="250ms"
       *ngIf="workspaces.length > 0; Else noWorkspaces">
       <mat-tab class="d-flex flex-row" *ngFor="let workspace of workspaces">
         <ng-template mat-tab-label>

@@ -71,7 +71,7 @@ export class ManageTodoComponent implements OnInit, AfterViewInit {
           Validators.required,
           Validators.minLength(3),
         ]),
-        token:new FormControl(e.token),
+        token: new FormControl(e.token),
       }))
     })
     this._cdr.detectChanges()
@@ -88,6 +88,10 @@ export class ManageTodoComponent implements OnInit, AfterViewInit {
       })
     );
     this._cdr.detectChanges();
+  }
+
+  deleteTask(i: number) {
+    (this.form.get('checkers') as FormArray).removeAt(i);
   }
 
   close() {

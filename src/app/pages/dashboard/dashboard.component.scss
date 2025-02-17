@@ -1,5 +1,7 @@
 :host>mat-card {
   height: calc(100% - (16px + 64px));
+  overflow-y: hidden;
+  padding-bottom: 17.5469px; // ~5%
 }
 
 .tab-title {

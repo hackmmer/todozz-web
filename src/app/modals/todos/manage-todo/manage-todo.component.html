@@ -16,6 +16,9 @@
           <mat-checkbox formControlName="value">
             <input type="text" formControlName="text">
           </mat-checkbox>
+          <button mat-icon-button (click)="deleteTask($i)">
+            <app-icon [icon]="'delete'" />
+          </button>
         </div>
       </div>
     </div>
