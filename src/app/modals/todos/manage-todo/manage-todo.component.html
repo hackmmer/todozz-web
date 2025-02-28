@@ -12,7 +12,7 @@
         </button>
       </div>
       <div formArrayName="checkers">
-        <div [formGroupName]="$i" *ngFor="let f of tasks; index as $i">
+        <div class='d-flex justify-content-between' [formGroupName]="$i" *ngFor="let f of tasks; index as $i">
           <mat-checkbox formControlName="value">
             <input type="text" formControlName="text">
           </mat-checkbox>

@@ -12,7 +12,7 @@ export function MODAL_CONFIG(data?: any): MatDialogConfig {
     data,
     hasBackdrop: true,
     backdropClass: 'blur',
-    width: '20rem',
+    width: '22rem',
     enterAnimationDuration: '500ms',
     exitAnimationDuration: '500ms',
   };
