@@ -59,6 +59,19 @@ export class NavBarComponent implements OnInit {
       });
   }
 
+  sign_up(){
+    const DialogConfig = MODAL_CONFIG({
+      isLogin: false,
+    });
+    this.matDialog
+      .open(AuthComponent, DialogConfig)
+      .afterClosed()
+      .subscribe((e) => {
+        // this._router.navigate(['/dashboard']);
+        this._cdr.markForCheck();
+      });
+  }
+
   logout() {
     this.userService.logout().subscribe((e) => window.location.reload());
   }

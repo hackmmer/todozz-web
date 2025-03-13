@@ -9,7 +9,7 @@
 
 <mat-dialog-actions class="d-flex justify-content-between">
   <button mat-button matDialogClose>Cancel</button>
-  <!-- <button mat-button>SignUp</button> -->
-  <button (click)="loginSignup()" [disabled]="!this.form.valid" mat-button>Login!</button>
+  <button *ngIf="login" (click)="loginSignup()" [disabled]="!this.form.valid" mat-button>Sign in</button>
+  <button *ngIf="!login" (click)="loginSignup()" [disabled]="!this.form.valid" mat-button>Sign up</button>
 
 </mat-dialog-actions>

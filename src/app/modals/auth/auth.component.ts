@@ -17,6 +17,7 @@ import { UserService } from '../../services/user.service';
 })
 export class AuthComponent implements OnInit {
   title!: string;
+  login:boolean
   private readonly data = inject(MAT_DIALOG_DATA);
 
   private _formBuilder: FormBuilder = inject(FormBuilder);
@@ -27,10 +28,11 @@ export class AuthComponent implements OnInit {
     private _cdr: ChangeDetectorRef,
     private userService: UserService
   ) {
-    this.title = this.data.isLogin ? 'Login' : 'SignUp';
+    this.login = this.data.isLogin
+    this.title = this.login? 'Sign in' : 'Sign Up';
 
     this.form = this._formBuilder.group(
-      this.data.isLogin
+      this.login
         ? {
             user: new FormControl('', [
               Validators.required,
@@ -41,19 +43,38 @@ export class AuthComponent implements OnInit {
               Validators.minLength(8),
             ]),
           }
-        : {}
+        : {
+          user: new FormControl('', [
+            Validators.required,
+            Validators.minLength(3),
+          ]),
+          pass: new FormControl('', [
+            Validators.required,
+            Validators.minLength(8),
+          ]),
+        }
     );
   }
 
   ngOnInit(): void {}
 
   loginSignup() {
-    this.userService
-      .login({
-        username: this.form.value.user,
-        password: this.form.value.pass,
-      })
-      .subscribe((e) => this.close());
+    if(this.login)
+      {
+        this.userService
+        .login({
+          username: this.form.value.user,
+          password: this.form.value.pass,
+        })
+        .subscribe((e) => this.close());
+      }
+    else{
+        this.userService.register({
+          name: this.form.value.user,
+          password: this.form.value.pass,
+        })
+        this.close()
+    }
   }
 
   close() {

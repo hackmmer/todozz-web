@@ -2,7 +2,7 @@ import { merge } from 'lodash';
 import { IWorkspace } from './todo';
 
 export interface IUser {
-  _id: string;
+  _id?: string;
   profile_image?: string;
   name: string;
   password: string;
