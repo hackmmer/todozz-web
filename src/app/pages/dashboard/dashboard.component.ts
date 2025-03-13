@@ -50,6 +50,8 @@ export class DashboardComponent implements OnInit {
     const DialogConfig = MODAL_CONFIG({
       isEdit,
       todo,
+    }, {
+      width: "50%"
     });
     this._dialog
       .open(ManageTodoComponent, DialogConfig)

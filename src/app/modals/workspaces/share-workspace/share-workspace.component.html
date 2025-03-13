@@ -2,7 +2,7 @@
 
 <mat-dialog-content>
   <form class="app-input-group" [formGroup]="form">
-    <input formControlName='link' type="text" class="app-form-control" [disabled]="true">
+    <input formControlName='link' type="text" class="app-form-control w-100" [disabled]="true">
     <button (click)="copy()" class="app-input-group-text action" id="btnGroupAddon">
       <app-icon [color]="'secundary'" [icon]="'clipboard'" />
     </button>

@@ -23,6 +23,7 @@ import {
 } from '@angular/forms';
 import { InputTextComponent } from './input-text/input-text.component';
 import { ProvideValueAccessor } from './classes/BaseControl';
+import { InputTaskComponent } from './input-task/input-task.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ProvideValueAccessor } from './classes/BaseControl';
     TodoListComponent,
     IconComponent,
     InputTextComponent,
+    InputTaskComponent,
   ],
   imports: [
     CommonModule,
@@ -68,6 +70,7 @@ import { ProvideValueAccessor } from './classes/BaseControl';
     MatButtonModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    InputTaskComponent,
   ],
 })
 export class ComponentsModule {}

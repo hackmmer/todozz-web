@@ -21,17 +21,17 @@ export class ManageWorkspaceComponent {
   title!: string;
   private readonly data: {
     isEdit: boolean;
-    todo?: IWorkspace;
+    workspace?: IWorkspace;
   } = inject(MAT_DIALOG_DATA);
 
   private _formBuilder: FormBuilder = inject(FormBuilder);
   form: FormGroup;
 
   constructor(private _dialog: MatDialogRef<ManageTodoComponent>) {
-    this.title = this.data.isEdit ? 'Update Todo' : 'Create Todo';
+    this.title = this.data.isEdit ? 'Update Workspace' : 'Create Workspace';
 
     this.form = this._formBuilder.group({
-      title: new FormControl(this.data.todo?.title ?? '', [
+      title: new FormControl(this.data.workspace?.title ?? '', [
         Validators.required,
         Validators.minLength(3),
       ]),

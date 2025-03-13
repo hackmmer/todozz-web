@@ -7,13 +7,14 @@ export abstract class BaseModal {
   onClose(): void {}
 }
 
-export function MODAL_CONFIG(data?: any): MatDialogConfig {
+export function MODAL_CONFIG(data?: any, options?: MatDialogConfig): MatDialogConfig {
   return {
-    data,
+    data: data ?? {},
     hasBackdrop: true,
     backdropClass: 'blur',
     width: '22rem',
     enterAnimationDuration: '500ms',
     exitAnimationDuration: '500ms',
+    ...options,
   };
 }
