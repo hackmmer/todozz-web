@@ -6,3 +6,7 @@ export interface IShareResp {
   user: IUser,
   workspace: IWorkspace,
 };
+
+export interface IErrorResponse {
+  error: string;
+}

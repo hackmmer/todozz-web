@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs';
 import { StorageService } from './storage.service';
+import { IErrorResponse } from '../interfaces/http';
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +58,7 @@ export class UserService {
   }
 
   register(payload: IUser) {
-    this._http
+    return this._http
       .post<IUserSession>(
         `${environment.api.ssl ? 'https' : 'http'}://${environment.api.url}:${
           environment.api.port
@@ -65,7 +66,12 @@ export class UserService {
         payload
       )
       .pipe(
-        tap((response: IUserSession) => {
+        tap((response: IUserSession | IErrorResponse) => {
+          // TODO implementar aqui manejo de errores
+          // debe abrir un snackbar o dar alguna notificacion
+          // la cual debe venir con el mensaje de error
+          if ('error' in response)
+            return;
           this._storageService.setSession(response.session);
           this._storageService.setItems({ _id: response.user._id });
         })

@@ -17,7 +17,7 @@ import { UserService } from '../../services/user.service';
 })
 export class AuthComponent implements OnInit {
   title!: string;
-  login:boolean
+  login: boolean;
   private readonly data = inject(MAT_DIALOG_DATA);
 
   private _formBuilder: FormBuilder = inject(FormBuilder);
@@ -28,13 +28,13 @@ export class AuthComponent implements OnInit {
     private _cdr: ChangeDetectorRef,
     private userService: UserService
   ) {
-    this.login = this.data.isLogin
-    this.title = this.login? 'Sign in' : 'Sign Up';
+    this.login = this.data.isLogin;
+    this.title = this.login ? 'Sign in' : 'Sign Up';
 
     this.form = this._formBuilder.group(
       this.login
         ? {
-            user: new FormControl('', [
+            username: new FormControl('', [
               Validators.required,
               Validators.minLength(3),
             ]),
@@ -44,36 +44,36 @@ export class AuthComponent implements OnInit {
             ]),
           }
         : {
-          user: new FormControl('', [
-            Validators.required,
-            Validators.minLength(3),
-          ]),
-          pass: new FormControl('', [
-            Validators.required,
-            Validators.minLength(8),
-          ]),
-        }
+            username: new FormControl('', [
+              Validators.required,
+              Validators.minLength(3),
+            ]),
+            pass: new FormControl('', [
+              Validators.required,
+              Validators.minLength(8),
+            ]),
+          }
     );
   }
 
   ngOnInit(): void {}
 
   loginSignup() {
-    if(this.login)
-      {
-        this.userService
+    if (this.login) {
+      this.userService
         .login({
-          username: this.form.value.user,
+          username: this.form.value.username,
           password: this.form.value.pass,
         })
         .subscribe((e) => this.close());
-      }
-    else{
-        this.userService.register({
-          name: this.form.value.user,
+    } else {
+      this.userService
+        .register({
+          username: this.form.value.username,
+          name: this.form.value.username,
           password: this.form.value.pass,
         })
-        this.close()
+        .subscribe((e) => this.close());
     }
   }
 

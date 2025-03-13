@@ -67,7 +67,7 @@ export class NavBarComponent implements OnInit {
       .open(AuthComponent, DialogConfig)
       .afterClosed()
       .subscribe((e) => {
-        // this._router.navigate(['/dashboard']);
+        this._router.navigate(['/dashboard']);
         this._cdr.markForCheck();
       });
   }
